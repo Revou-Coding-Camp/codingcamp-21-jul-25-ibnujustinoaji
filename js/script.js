@@ -9,6 +9,8 @@ const filterBtn = document.getElementById('filter-btn');
 const deleteAllBtn = document.getElementById('delete-all-btn');
 // Tambahkan variabel untuk input tanggal filter
 const filterDateInput = document.getElementById('filter-date-input');
+// Tambahkan variabel untuk filter status
+const filterStatusInput = document.getElementById('filter-status-input');
 
 function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -70,11 +72,16 @@ todoForm.addEventListener('submit', function(e) {
 // Ubah event listener filter agar pakai filterDateInput
 filterBtn.addEventListener('click', function() {
     const filterDate = filterDateInput.value;
-    if (!filterDate) {
-        renderTodos();
-        return;
+    const filterStatus = filterStatusInput.value;
+    let filtered = todos;
+    if (filterDate) {
+        filtered = filtered.filter(todo => todo.date === filterDate);
     }
-    const filtered = todos.filter(todo => todo.date === filterDate);
+    if (filterStatus === 'done') {
+        filtered = filtered.filter(todo => todo.done);
+    } else if (filterStatus === 'pending') {
+        filtered = filtered.filter(todo => !todo.done);
+    }
     renderTodos(filtered);
 });
 
