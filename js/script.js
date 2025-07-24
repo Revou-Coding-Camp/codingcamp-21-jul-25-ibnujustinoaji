@@ -1,4 +1,4 @@
-// Data To-Do disimpan di localStorage agar tetap ada saat refresh
+
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 const todoForm = document.getElementById('todo-form');
@@ -7,6 +7,8 @@ const dateInput = document.getElementById('date-input');
 const todoList = document.getElementById('todo-list');
 const filterBtn = document.getElementById('filter-btn');
 const deleteAllBtn = document.getElementById('delete-all-btn');
+// Tambahkan variabel untuk input tanggal filter
+const filterDateInput = document.getElementById('filter-date-input');
 
 function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -65,8 +67,9 @@ todoForm.addEventListener('submit', function(e) {
     todoForm.reset();
 });
 
+// Ubah event listener filter agar pakai filterDateInput
 filterBtn.addEventListener('click', function() {
-    const filterDate = dateInput.value;
+    const filterDate = filterDateInput.value;
     if (!filterDate) {
         renderTodos();
         return;
@@ -84,5 +87,5 @@ deleteAllBtn.addEventListener('click', function() {
     }
 });
 
-// Render pertama kali
+
 renderTodos(); 
